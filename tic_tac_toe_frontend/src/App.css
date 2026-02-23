@@ -256,6 +256,208 @@
   transform: translateY(0px);
 }
 
+/* Secondary/utility buttons used in the score dashboard and round controls */
+.btnSecondary {
+  appearance: none;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 14px;
+  padding: 12px 16px;
+  width: min(240px, 90%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.06);
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.btnSecondary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.10);
+}
+
+.btnSecondary:active {
+  transform: translateY(0px);
+}
+
+.btnGhostDanger {
+  appearance: none;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 14px;
+  padding: 12px 16px;
+  width: min(240px, 90%);
+  font-size: 14px;
+  font-weight: 800;
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.06);
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.btnGhostDanger:hover {
+  transform: translateY(-1px);
+  border-color: rgba(239, 68, 68, 0.38);
+  background: rgba(239, 68, 68, 0.10);
+}
+
+.btnGhostDanger:active {
+  transform: translateY(0px);
+}
+
+/* Setup + dashboard */
+.setupCard {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  margin-top: 10px;
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.06), rgba(59, 130, 246, 0.03));
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  margin: 6px 0 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.setupForm {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.textInput {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 14px;
+  padding: 12px 12px;
+  font-size: 14px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.textInput:focus {
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+}
+
+.markPill {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.markPill--x {
+  color: #1d4ed8;
+  border-color: rgba(59, 130, 246, 0.28);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.markPill--o {
+  color: #0e7490;
+  border-color: rgba(6, 182, 212, 0.30);
+  background: rgba(6, 182, 212, 0.10);
+}
+
+.setupActions {
+  display: grid;
+  justify-items: center;
+  margin-top: 6px;
+}
+
+.dashboard {
+  margin-top: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.scoreGrid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr 1fr;
+  gap: 10px;
+}
+
+.scoreCard {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px;
+}
+
+.scoreTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.scoreLabel {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.scoreValue {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.scoreHint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.scoreMark {
+  font-weight: 900;
+}
+
+.scoreMark--x {
+  color: #1d4ed8;
+}
+
+.scoreMark--o {
+  color: #0e7490;
+}
+
+.dashActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
 .helpText {
   text-align: center;
   color: var(--muted);
@@ -281,5 +483,17 @@
 
   .cell {
     border-radius: 16px;
+  }
+
+  .fieldRow {
+    grid-template-columns: 80px 1fr auto;
+  }
+
+  .scoreGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashActions {
+    grid-template-columns: 1fr;
   }
 }
