@@ -1,104 +1,285 @@
-/* CSS Variables for Theme Management */
-:root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
-}
+/* Modern light theme for Tic Tac Toe (primary: #3b82f6, accent: #06b6d4) */
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #64748b;
+
+  --primary: #3b82f6;
+  --accent: #06b6d4;
+  --danger: #ef4444;
+
+  --border: rgba(15, 23, 42, 0.12);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.08), var(--bg) 45%);
+  color: var(--text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+.page {
   min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.card {
+  width: min(560px, 92vw);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 6px 0 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.statusWrap {
+  display: flex;
+  align-items: center;
+}
+
+.statusPill {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.statusPill--win {
+  border-color: rgba(6, 182, 212, 0.35);
+  background: rgba(6, 182, 212, 0.10);
+  color: #0e7490;
+}
+
+.boardWrap {
+  display: grid;
+  place-items: center;
+  padding: 14px 0 18px;
+}
+
+.board {
+  --gap: 10px;
+  width: min(360px, 86vw);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
   position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.cell {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  box-shadow: var(--shadow-soft);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: grid;
+  place-items: center;
+
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease,
+    background-color 120ms ease;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.cell:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.10);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.cell:active:not(:disabled) {
+  transform: translateY(0px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cell:disabled {
+  cursor: default;
+  opacity: 0.92;
+}
+
+.cellValue {
+  font-size: clamp(44px, 8vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.cell--X .cellValue {
+  color: var(--primary);
+}
+
+.cell--O .cellValue {
+  color: var(--accent);
+}
+
+.cell--win {
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow: 0 12px 28px rgba(6, 182, 212, 0.14);
+  background: rgba(6, 182, 212, 0.08);
+}
+
+/* Winning line overlay
+   We draw a single line based on:
+   - direction: 0 horizontal, 1 vertical, 2 diag, 3 anti-diag
+   - start index: for rows/cols (0,3,6) or (0,1,2), and for diags (0 or 2)
+*/
+.winLine {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 6px;
+  width: 78%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.0), var(--accent), rgba(6, 182, 212, 0.0));
+  filter: drop-shadow(0 10px 16px rgba(6, 182, 212, 0.22));
+  pointer-events: none;
+}
+
+.winLine--dir-0 {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.winLine--dir-1 {
+  transform: translate(-50%, -50%) rotate(90deg);
+  width: 78%;
+}
+
+.winLine--dir-2 {
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 92%;
+}
+
+.winLine--dir-3 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 92%;
+}
+
+/* Map start indices to approximate line positions within the grid */
+.winLine--start-0 {
+  top: 16.66%;
+}
+.winLine--start-3 {
+  top: 50%;
+}
+.winLine--start-6 {
+  top: 83.33%;
+}
+
+.winLine--start-1 {
+  left: 50%;
+}
+.winLine--start-2 {
+  left: 83.33%;
+}
+
+/* For columns: start indices 0,1,2 should move left; rotation already vertical */
+.winLine--dir-1.winLine--start-0 {
+  left: 16.66%;
+  top: 50%;
+}
+.winLine--dir-1.winLine--start-1 {
+  left: 50%;
+  top: 50%;
+}
+.winLine--dir-1.winLine--start-2 {
+  left: 83.33%;
+  top: 50%;
+}
+
+/* Diagonals: keep centered */
+.winLine--dir-2.winLine--start-0,
+.winLine--dir-3.winLine--start-2 {
+  left: 50%;
+  top: 50%;
+}
+
+.footer {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+
+.btnPrimary {
+  appearance: none;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  width: min(240px, 90%);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 30px rgba(59, 130, 246, 0.22);
+}
+
+.btnPrimary:active {
+  transform: translateY(0px);
+}
+
+.helpText {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Mobile tweaks */
+@media (max-width: 420px) {
+  .card {
+    padding: 16px;
+    border-radius: 16px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .title {
+    font-size: 24px;
+  }
+
+  .statusPill {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .cell {
+    border-radius: 16px;
   }
 }
